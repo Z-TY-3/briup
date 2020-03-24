@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.demo.mapper.ex.CategoryExMapper">
+		
+		  <resultMap id="BaseResultMap" type="com.briup.demo.bean.ex.CategoryEx">
+		  
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="BIGINT" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <collection property="articles" ofType="com.briup.demo.bean.Article"
+    			column="id" select="selectAllArticleByCategoryId"></collection>
+  </resultMap>
+  
+  <select id="findAllCategoryEx" resultMap="BaseResultMap">
+  	select id,name,code from cms_category
+  </select>
+  
+  <select id="selectAllArticleByCategoryId" resultType="com.briup.demo.bean.Article">
+  	select * from cms_article where category_id = #{id}
+  </select>
+
+	<!--不用指定id类型   	parameter是对象   	id是属性   id自动封装      -->
+	<select id="findCategoryExById" resultMap="BaseResultMap">
+		select * from cms_category where id=#{id}  
+	</select>
+	
+	
+	
+	
+	
+</mapper>

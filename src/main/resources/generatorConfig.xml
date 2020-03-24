@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- mybatis-generator的核心配置文件 -->
+<generatorConfiguration>
+
+
+	<!--驱动jar包一个位置  -->
+  <classPathEntry location="C:/repository/mysql/mysql-connector-java/8.0.19/mysql-connector-java-8.0.19.jar" />
+ <!-- 不实现序列化接口 没有context的话
+  					自动生成的bean对象 不会实现序列化接口 -->
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+  <!-- mysql8的是不是用8点几的版本+cj  高版本兼容低 低不兼容高   mybatis-generator 官网--> 
+  				<!--自动生成bean对象 不重写tostring方法  -->	
+  	<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
+    <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+    <!-- maven一个指令 直接下载这些 -->
+  
+  	<commentGenerator>
+  		 <property name="suppressDate" value="true"/>
+          <property name="suppressAllComments" value="true"/>
+  	</commentGenerator>
+  <!-- 驱动cj -->
+  	<!-- 注意！如果要重新生成pojo类，务必改成项目组数据库，用户名密码 -->
+    <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"  
+        connectionURL="jdbc:mysql://127.0.0.1:3306/cms?serverTimezone=Asia/Shanghai"
+        userId="root"
+        password="root1234">
+    </jdbcConnection>
+    
+<!-- mvn mybatis-generator:generate  逆向工程自动创建bean对象-->
+
+	<!--指定生成的类型为java类型，避免数据库中number等类型字段 -->
+	<!-- 有符号 无穷大 -->
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+	<!--自动+放包路径 -->
+    <javaModelGenerator targetPackage="com.briup.demo.bean" targetProject="./src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" /><!--  -->
+    </javaModelGenerator>
+
+	<!--自动生成的*Mapper.xml文件存放路径 -->
+    <sqlMapGenerator targetPackage="mapper"  targetProject="./src/main/resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+	<!--自动生成的*Mapper.java存放路径 --> <!-- 映射接口存放位置 -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.briup.demo.mapper"  targetProject="./src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+	<!-- 内置数据源没生效  配置在pom.xml-->
+	
+	<!-- 映射配置 -->
+	<table tableName="cms_link" domainObjectName="Link"></table>
+	<table tableName="cms_customer" domainObjectName="Customer"></table>
+	<table tableName="cms_category" domainObjectName="Category"></table>
+	<table tableName="cms_article" domainObjectName="Article">
+		<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>
+	</table>
+  </context>
+</generatorConfiguration>
