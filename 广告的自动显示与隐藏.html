@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>广告的自动显示与隐藏</title>
+    <style>
+        #content{width:100%;height:500px;background:#999}
+    </style>
+
+    <!--引入jquery-->
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script>
+    /*
+    需求：1. 打开页面3秒之后，显示广告（使用slow和swing）；
+       	2. 5秒之后，隐藏广告。
+    		   显示隐藏的广告不用循环
+    */
+  	$(function(){
+  		setTimeout(showDiv,3000);
+  		setTimeout(hideDiv,5000);
+  	})
+  	
+  	
+
+  	function showDiv(){
+    	$("#ad").show("slow","swing");
+    }
+    
+    function hideDiv(){
+    	$("#ad").hide("slow","swing");
+    } 
+    
+    
+
+	//3s后显示广告
+	//5s后关闭
+	/* $(function(){
+		window.setTimeout(function(){
+			$("#ad").toggle("slow", "swing");
+			window.setTimeout(function(){
+				$("#ad").toggle("slow", "swing");
+			}, 5000);
+		}, 3000);
+	}) */
+
+  	//查找display只
+   /*  window.setInterval(function(){
+    	$("#ad").prop()
+    	$("#ad").show("slow","linear");
+    },3000); */
+    
+    /*$("#ad").delay(3000).show("slow","swing").delay(5000).hide("slow","swing")  */
+    </script>
+</head>
+<body>
+<!-- 整体的DIV -->
+<div>
+    <!-- 广告DIV -->
+    <div id="ad" style="display:none;">
+        <img style="width:100%" src="../img/adv.jpg" />
+    </div>
+
+
+    <!-- 下方正文部分 -->
+    <div id="content">
+         正文部分 
+    </div>
+    
+</div>
+
+
+
+
+
+
+</body>
+</html>
